@@ -14,7 +14,7 @@ read_qiime1 <- function(Path, rename = FALSE){
   otu <- Path %>%
     readr::read_tsv(skip = 1) %>%
     dplyr::rename(OTU_ID = `#OTU ID`) %>%
-    dplyr::mutate(OTU_ID = dplyr::case_when(stringr::str_detect(OTU_ID, "^OTU") ~ paste0("OTU", OTU_ID), TRUE ~ as.character(OTU_ID)))
+    dplyr::mutate(OTU_ID = dplyr::case_when(stringr::str_detect(OTU_ID, "^OTU") ~ as.character(OTU_ID), TRUE ~ paste0("OTU", OTU_ID)))
   new_tax <- otu %>%
     dplyr::select(taxonomy) %>%
     tidyr::separate(taxonomy,sep = ";",into = c("kindom","phylum","class","order","family","genus","species"))%>%
