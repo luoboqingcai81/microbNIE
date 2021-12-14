@@ -11,9 +11,9 @@
 #' combined_Table <- microbNIE:::combined_Table
 #' results_ggtable <- ggtable_composition(combined_Table, 10)
 ggtable_composition <- function(combined_tax, Num){
-  tax_name <- rlang::sym(colnames(combined_Table)[1])
+  tax_name <- rlang::sym(colnames(combined_tax)[1])
   Sum <- NULL
-  ggcomposition <- combined_Table %>%
+  ggcomposition <- combined_tax %>%
     dplyr::mutate(Sum = purrr::pmap(.[,-1], ~ sum(c(...)))) %>%
     dplyr::mutate(Sum = as.numeric(Sum)) %>%
     dplyr::filter(!(!!tax_name == "other")) %>%
@@ -26,6 +26,13 @@ ggtable_composition <- function(combined_tax, Num){
     dplyr::rows_insert(Col_other)
   return(ggcomposition2)
 }
+
+
+
+
+
+
+
 
 
 
